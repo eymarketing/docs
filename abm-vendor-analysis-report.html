@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light" style=""><head><meta charset="utf-8">
+    
+    <title>ABM支援ベンダー分析レポート</title>
+    
+    <style>
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 80px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'MS Mincho', 'Times New Roman', serif;
+        color: #000;
+        line-height: 1.6;
+        font-size: 11pt;
+        text-align: justify;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: 'MS Gothic', 'Arial', sans-serif;
+        color: #000;
+      }
+      h1 {
+        font-size: 18pt;
+        text-align: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 14pt;
+        margin-top: 30px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 3px;
+      }
+      h3 {
+        font-size: 12pt;
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 10pt;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      .highlight-box {
+        border: 1px solid #000;
+        padding: 15px;
+        background-color: #fdfdfd;
+        margin-bottom: 20px;
+      }
+      strong {
+        font-weight: bold;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 20px;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #000;
+        margin: 20px 0;
+      }
+      .meta-info {
+        margin-bottom: 20px;
+      }
+      .meta-info p {
+        margin: 0 0 5px 0;
+      }
+      .references {
+        font-size: 9pt;
+        margin-top: 40px;
+        border-top: 1px dashed #000;
+        padding-top: 10px;
+      }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Smooch%20Sans:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Share%20Tech:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Titillium%20Web:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto%20Sans:wght@400&amp;display=swap" rel="stylesheet"></head>
+  <body style="">
+    <h1 style="font-family: &quot;Noto Sans&quot;, sans-serif;"><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM支援ベンダー分析レポート</span></h1>
+
+    <div class="meta-info">
+      <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">共有範囲：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">STech I ABX実装推進メンバー</span></p>
+      <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">対象ベンダー：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH／シンフォニーマーケティング／才流／Maroo</span></p>
+      <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">目的：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM実装に必要な支援レイヤを整理し、各社の適用領域・不足領域・比較観点を明確化する</span></p>
+    </div>
+
+    <hr>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">1. 本レポートの前提</span></h2>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      本レポートは、STech
+      IにおけるABM実装を推進する社内メンバー間で、外部支援会社の役割分担と比較観点を共有するための整理資料である。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMの推進において、マーケティング部門は、ターゲット選定、顧客理解、データ活用、コンテンツ、施策設計、可視化、社内推進を担う重要な起点となる。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      そのうえで、ターゲットアカウントへの接点形成、関係構築、商談化、パイプライン創出を進めるには、営業・インサイドセールス・技術・CSがアカウント単位で連携する体制が必要である。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      特にTier1アカウントでは、営業が顧客接点や商談推進の中心を担い、マーケティングはデータ、コンテンツ、シグナル、施策、会議体、可視化を通じて、その活動を支援・増幅する役割を担う。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      STech IのABM実装では、マーケティング部門の推進力を起点に、営業・IS・技術・CSを巻き込んだGTM活動として設計する。
+    </span></p>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">2. 参照資料</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">区分</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">参照資料</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「01GROWTH ABM／ABXオペレーション設計等について.pdf」</span></strong></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーマーケティング</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「双日テックイノベーション様ご提案260417(2).pdf」</span></strong></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></td>
+          <td>
+            <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「260401【Maroo】双日テックイノベーション株式会社 御中_ディスカッション・ペーパー.pdf」</span></strong>
+          </td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流Webサイト、</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「ターゲット企業の優先順位付けシート_才流.xlsx」</span></strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">3. エグゼクティブサマリー</span></h2>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">4社は、単純な優劣比較ではなく、ABM実装における異なる支援レイヤを担う候補として整理する。</span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">会社</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">主な位置づけ</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">評価</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM RevOps／オペレーション設計パートナー</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+            ABMステージ、MQA、シグナル&amp;レスポンス、KPI、ダッシュボード、CRM/MA連携など、ABMを継続運用するための設計に強い
+          </span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーマーケティング</span></strong></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・方針策定／実行伴走パートナー</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+            ABM戦略、ターゲットアカウント選定、実行準備、実行伴走を広く提示。ただし、現提案では成果物・実作業範囲・対象アカウント数が不明確
+          </span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・実行伴走の中核候補</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+            ターゲット選定、アカウントプラン、評価指標、営業・マーケ連携、会議体伴走までカバー。ABM支援を明確にサービス化している
+          </span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></strong></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">インサイドセールス／BDR起点のABM実行支援パートナー</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ICP、Buying Group、Tier、カバレッジ分析、アウトバウンド、ナーチャリング、商談創出まで実行寄りに具体化</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">各社の大きな役割は以下の通り。</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">役割</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">中核候補</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・ターゲット選定・アカウントプラン・営業伴走</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM RevOps・運用基盤・KPI・システム設計</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM対象企業への接点創出・BDR／インサイドセールス実行</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></strong></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM方針策定・教育・広範なB2Bマーケティング支援</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーマーケティング</span></strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">4. ABM推進における営業関与の重要性</span></h2>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMは、ターゲットアカウントを起点に、営業・マーケティング・インサイドセールス・技術・CSが連携し、商談・パイプライン・受注・拡張を創出するGTM活動として設計する必要がある。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      才流は、ABM推進において営業部門を除いた実行は失敗しやすく、マーケティングと営業の連携が欠かせないと説明している。また、個社名単位までターゲットアカウントを絞り、アカウントプランに基づいて営業とマーケティングが連携することをABMのポイントとしている。</span><sup><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">[1]</span></sup>
+    </p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      才流は、ABMで起こりやすい課題として、マーケティング側で作成したターゲットアカウントリストが営業に活用されない、営業から顧客情報が共有されない、といった組織連携上の問題も挙げている。</span><sup><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">[1]</span></sup>
+    </p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      Marooの
+      </span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「260401【Maroo】双日テックイノベーション株式会社 御中_ディスカッション・ペーパー.pdf」</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      では、Tier1は営業主導、Tier2はBDR主導、Tier3はマーケティング主導という役割分担が示されている。Tier1では、営業が企業リサーチやアカウントプラン作成を担い、BDRと連携して実行フェーズを進める構成になっている。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      01GROWTHの
+      </span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">「01GROWTH ABM／ABXオペレーション設計等について.pdf」</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      でも、シグナル検知後に最適な担当営業を特定し、Slackやメールで担当者へ通知し、架電やメールなどのフォローを実行する流れが示されている。また、ISへのハンドオフ条件設計も支援範囲に含まれている。
+    </span></p>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      以上を踏まえ、STech
+      IのABM実装では、マーケティング部門の推進力を起点としながら、営業・IS・技術・CSがアカウント単位で役割を持つ体制を前提にする。
+    </span></p>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">5. ABM実装に必要な支援レイヤ</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">レイヤ</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">内容</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">主な該当ベンダー</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">1. ABM戦略設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">対象事業・対象商材・対象市場・ABM方針・ロードマップを設計</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、シンフォニーマーケティング</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">2. ICP／ターゲット企業選定</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ICP定義、ターゲットアカウントリスト、Tier設計、優先順位付け</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、Maroo、01GROWTH、シンフォニー</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">3. 営業オーナーシップ設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Tier別に営業、BDR、マーケティングの役割を定義し、誰がアカウント責任を持つかを設計</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、Maroo、01GROWTH</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">4. アカウント攻略設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">アカウントプラン、Buying Group、役職別課題、関係性マップ</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、Maroo、01GROWTH</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">5. アカウントプラン運営</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業担当との壁打ち、ABM会議、進捗確認、次アクション決定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、Maroo、要確認：シンフォニー／01GROWTH</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">6. ABM施策設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Tier別施策、コミュニケーション設計、イベント、コンテンツ方針</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、シンフォニー、Maroo</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">7. 接点創出／BDR実行</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">電話、メール、LinkedIn、手紙、CXOレター、フォーム送信、商談創出</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">8. ABM RevOps／運用基盤</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">MQA、ABMステージ、SLA、KPI、ダッシュボード、CRM/MA/SFA連携</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9. 社内展開・教育</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">経営層説明、営業向け研修、ABM会議、マネジメント層支援</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流、シンフォニー、01GROWTH</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">10. コンテンツ・施策制作</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ホワイトペーパー、事例、役職別資料、LP、広告、イベント資料</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">明確な主担当は未確定</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">11. 成果管理・改善</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">パイプライン、商談化率、ターゲット接触率、ROI、振り返り</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH、Maroo、才流</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">12. 既存顧客拡張／CS連携</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">既存顧客へのクロスセル、アップセル、契約更新、CS連携</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo資料ではExpansionに言及あり。各社とも要確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">6. 重要だが、現時点で欠落または不明確な支援項目</span></h2>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      以下は、ABM実装において重要である一方、各社提案・公開情報だけでは担当範囲が明確でない項目である。ベンダー選定時にスコープとして明記する必要がある。
+    </span></p>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">欠落・不明確な支援項目</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">重要性</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">現時点の見立て</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業オーナーシップ設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業がアカウント責任を持たない場合、ABMがキャンペーン施策に寄りやすい</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流・Marooは強い。01GROWTHは運用設計として一部対応。シンフォニーは要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業マネージャー巻き込み</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業担当だけでなく、営業マネージャーがKPI・優先順位・会議体を握る必要がある</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流はマネジメント層支援に言及。その他は要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">アカウントレビュー会議の運営</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ターゲット企業ごとの進捗確認、次アクション決定、リソース配分が必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流はABM会議参加・ファシリテーションを明記。MarooはBDR実行会議寄り。01GROWTH・シンフォニーは要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業が使うアカウントプランの作成・更新</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">作成だけでなく、営業活動に使われ、更新されることが重要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流は強い。Marooは実行寄り。01GROWTH・シンフォニーは要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">コンテンツ制作実務</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">役職別・業界別・課題別の訴求資料、ホワイトペーパー、事例、営業資料がなければABM施策が動かない</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">4社とも一部言及はあるが、制作本数・制作責任・納品物は明確でない</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">キャンペーン実行実務</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ウェビナー、クローズドイベント、広告、DM、メール配信などの実行体制が必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Marooはアウトバウンド寄り。才流・シンフォニーは設計寄り。実行代行は要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">技術部門・SE・CSの巻き込み設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">STech Iでは営業・マーケだけでなく、技術・CSの関与がABM成功に必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTHはRevOps設計寄り。才流・シンフォニー・Marooでどこまで扱うか要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">データ調達・名寄せ・外部データ活用</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ターゲット企業・人物データの整備がABM実行の前提</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH、Marooはデータ設計に触れるが、データ購入・名寄せ実務は要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">個人情報・同意管理・アウトバウンド規制対応</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">メール、電話、LinkedIn、手紙などを使う場合、個人情報管理・オプトアウト対応が必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">現資料では明確なスコープとして確認できない</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABMの予算配分・ROIモデル</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">どのTierにどれだけ投資し、どの成果で判断するかが必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTHはKPI・アトリビューションに言及。具体的な投資配分モデルは要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">経営会議向け報告フォーマット</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">経営層の支援を維持するため、進捗・成果・次投資判断の報告設計が必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">4社とも明確な成果物としては確認できない</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">パートナー／アライアンス連携</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">STech Iの商材によっては、パートナー経由のABMも必要</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">MarooはPartnerチャネルに一部言及。体系的なPRM/パートナーABMは要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">内製化移管計画</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">外部支援終了後に社内で回る状態にする必要がある</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Marooはイネーブルメント、才流は定着伴走、01GROWTHはプレイブック化に関係。移管計画は要明文化</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">7. ポジショニングマップ</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">戦略・方法論寄り</span></strong></th>
+          <th><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">オペレーション／システム寄り</span></strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">実行・成果創出に近い</span></strong></td>
+          <td>
+            <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">：ABM戦略、ターゲット選定、アカウントプラン、営業伴走</span><br><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーマーケティング</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">：ABM方針策定、ターゲット選定、実行伴走
+          </span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">：BDR／IS起点の接点創出、ナーチャリング、商談化</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">仕組み化・基盤設計に近い</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーの一部：教育、啓蒙、方針設計</span></td>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">：MQA、ABMステージ、KPI、シグナル、ダッシュボード、CRM/MA連携</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">8. 支援カテゴリ別 比較表</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">支援カテゴリ</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニー</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・方針設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">経営・事業戦略との接続</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○〜◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ICP設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ターゲットアカウント選定</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Tier設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業オーナーシップ設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業マネージャー巻き込み</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">アカウントプラン作成</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">アカウントプラン運営</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM会議・営業壁打ち</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Buying Group／人物特定</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○〜◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">関係性マップ／ホワイトスペース分析</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">役職別・部門別メッセージ設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業・マーケ連携設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○〜◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業／ISへのハンドオフ設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">インサイドセールス／BDR実行</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">アウトバウンド実行</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">商談・パイプライン創出への直接関与</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABMステージ／MQA／SLA設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">KPI／ダッシュボード／可視化</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○〜◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">CRM／MA／SFA設計・レビュー</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">RevOps／運用基盤構築</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">社内教育・研修</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">プレイブック化・型化</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">コンテンツ制作実務</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">キャンペーン実行実務</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△〜○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">個人情報・同意管理設計</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">CS／既存顧客拡張連携</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">内製化移管計画</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9. 各社分析</span></h2>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9.1 01GROWTH</span></h3>
+    <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">位置づけ：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> ABM RevOps／オペレーション設計パートナー</span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">提案内容の要点：</span></strong><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      01GROWTHの提案は、ABMを継続的・再現可能に運用するための設計が中心である。支援テーマとして以下が提示されている。</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ・ABM／ABXオペレーション設計支援</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ・環境設計支援・実装レビュー</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ・社内展開・レクチャー／運用立ち上げのリード
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業関与の観点：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      営業が動くための運用基盤を設計する会社として位置づける。シグナル検知、担当営業の自動特定、Slackやメールによる通知、アクション実行の流れが示されている。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">強み：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMステージ、MQA等の設計が具体的。Marketo/Salesforce/HubSpotを前提にした運用設計に対応。RevOpsの仕組みに落とし込める。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">採用する場合の目的：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMの運用基盤、RevOps設計、CRM/MA/SFA上の管理構造を作るパートナーとして位置づける。
+    </span></p>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9.2 シンフォニーマーケティング</span></h3>
+    <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">位置づけ：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> ABM戦略・方針策定／実行伴走パートナー</span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">提案内容の要点：</span></strong><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMスタートプログラムが3段階で整理されている。</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      1. ABM戦略と方針策定</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      2. 最初のターゲットアカウントの選定と実行準備</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      3. ABMの実行開始と継続的な改善およびターゲットアカウントの拡大
+    </span></p>
+    <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">強み：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> B2Bマーケティング全般の実績・知見を前提とした支援。経営計画との接続を打ち出している。</span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">懸念・要確認：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      納品物が実施企画書・議事録と記載されており、具体成果物が明確でない。営業関与の詳細や実行伴走の具体性が不足。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">採用する場合の目的：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABMの方針策定、社内教育、経営層・営業部門の啓蒙、広範なB2Bマーケティング支援の候補として位置づける。
+    </span></p>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9.3 才流</span></h3>
+    <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">位置づけ：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> ABM戦略・実行伴走の中核候補</span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">公開情報上の要点：</span></strong><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABM支援を明確なサービスとして提供しており、ターゲットアカウントリスト作成、具体的なアクション、評価設計までを支援対象としている。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業関与の観点：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      営業を巻き込んだABM戦略・実行伴走の中核候補。営業・マーケ連携をABM成功の前提としており、ABM会議への参加や営業担当との壁打ちも対応。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">強み：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> サービス内容が明確。アカウントプラン、評価指標設計までカバー。営業マネージャー支援に対応。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">採用する場合の目的：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABM戦略、ターゲット企業選定、アカウントプラン、営業・マーケ連携、ABM会議運営、社内定着の中核パートナーとして位置づける。
+    </span></p>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">9.4 Maroo</span></h3>
+    <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">位置づけ：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> インサイドセールス／BDR起点のABM実行支援パートナー</span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">公開情報上の要点：</span></strong><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      インサイドセールス組織の立ち上げ、伴走型DX支援、インサイドセールスBPOを提供。ABMを5フェーズ（Account Selection,
+      Identification, Contact Coverage/Nurturing, Land, Expansion）で整理。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業関与の観点：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      Tier1は営業主導、Tier2はBDR主導という役割分担を示しており、営業と連携した実行フェーズを進める構成。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">強み：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABM対象企業への接点創出が具体的。電話、メール等の実行施策が具体的。商談・パイプライン創出、一次情報取得まで含むPoCが可能。
+    </span></p>
+    <p>
+      <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">採用する場合の目的：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      ABM対象企業に対する接点創出、人物特定、アウトバウンド、ナーチャリング、商談化PoCの実行パートナーとして位置づける。
+    </span></p>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">10. 各社のスコープ外・要確認項目一覧</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">重要項目</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニー</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業オーナーシップ設計</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">一部該当／要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">営業マネージャー巻き込み</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM会議・アカウントレビュー運営</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">個別アカウントプラン作成・更新</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">一部該当／要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">コンテンツ制作実務</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">広告・ウェビナー・イベント実行</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">BDR／アウトバウンド実行</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ外想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ外想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">CRM/MA/SFA実装</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">データ名寄せ・外部データ調達</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">個人情報・同意管理</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">経営会議向け報告設計</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">CS／既存顧客拡張</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">パートナーABM／アライアンス連携</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">内製化移管計画</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">一部該当</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">一部該当</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">一部該当</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">商談・パイプライン成果責任</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ外想定</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">スコープ内想定</span></td>
+        </tr>
+        <tr>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">技術・CSを含む部門横断運営</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">要確認</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">11. 各社への確認質問</span></h2>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">※各社への詳細な確認質問リストは本ドキュメントのソース等に記載の通り（代表例のみ抜粋）</span></p>
+    <ul>
+      <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH:</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> Tier別に営業、IS、マーケティングの責任分界を設計するか等</span></li>
+      <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニー:</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> ABMにおける営業部門の役割をどう定義するか、成果物の詳細等</span></li>
+      <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流:</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> Tier1アカウントにおける営業オーナーの役割定義、マーケ役割の設計等</span></li>
+      <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo:</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> 営業、BDR、マーケティングの役割分担、BPO後の移管等</span></li>
+    </ul>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">12. 推奨する役割分担案</span></h2>
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">案1：営業主導ABMを正しく設計してから進める構成</span></h3>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      役割：ABM戦略等は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、基盤等は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、接点創出は初期社内。</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      評価：全社的・継続的な仕組みにする場合に適した構成。
+    </span></p>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">案2：営業・BDRによる短期PoCで商談創出まで検証する構成</span></h3>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      役割：接点創出・BDRは</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、基盤は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、戦略レビューに</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">。</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      評価：短期間で仮説検証する場合に適した構成。
+    </span></p>
+
+    <h3><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">案3：社内啓蒙・教育を重視する構成</span></h3>
+    <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      役割：教育・啓蒙は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニー</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、基盤は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">、実行設計は</span><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流/Maroo</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">。</span><br><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+      評価：前提知識を広げる場合に適した構成。
+    </span></p>
+
+    <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">13. 現時点の評価</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">会社</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">総合評価</span></th>
+          <th><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">採用用途</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">才流</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・ターゲット選定・アカウントプラン・営業伴走の中核候補</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">01GROWTH</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM RevOps／運用基盤設計の中核候補</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">Maroo</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">◎</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM接点創出・BDR実行PoCの中核候補</span></td>
+        </tr>
+        <tr>
+          <td><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">シンフォニーマーケティング</span></strong></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">○〜△</span></td>
+          <td><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">方針策定・教育・広範なB2Bマーケ支援候補。現提案は具体化が必要</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">14. 推奨結論</span></h2>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">STech IにおけるABM実装では、以下の3機能を分けて検討する。</span></p>
+      <ul>
+        <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM戦略・営業オーナーシップ・アカウントプラン・営業伴走：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> 才流</span></li>
+        <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM RevOps・運用基盤・KPI・システム設計：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> 01GROWTH</span></li>
+        <li><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">ABM接点創出・BDR／インサイドセールス実行：</span></strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;"> Maroo</span></li>
+      </ul>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+        シンフォニーマーケティングは、ABM戦略・教育・実行伴走を広く掲げているが、現提案では営業オーナーシップ、アカウントプラン、会議体、成果物の具体性が不足しているため、再定義を求める必要がある。
+      </span></p>
+    </div>
+
+    <div class="highlight-box">
+      <h2><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">15. 社内共有用メッセージ</span></h2>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+        ABMの推進では、マーケティング部門がターゲット選定、顧客理解、データ活用、コンテンツ、施策設計、可視化、社内推進の起点となる。
+      </span></p>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+        そのうえで、ターゲットアカウントへの接点形成、関係構築、商談化、パイプライン創出を進めるには、営業・インサイドセールス・技術・CSがアカウント単位で連携する体制が必要である。
+      </span></p>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">
+        特にTier1アカウントでは、営業が顧客接点や商談推進の中心を担い、マーケティングはデータ、コンテンツ、シグナル、施策、会議体、可視化を通じて、その活動を支援・増幅する役割を担う。
+      </span></p>
+      <p>
+        <strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">STech
+          IのABM実装では、マーケティング部門の推進力を起点に、営業・IS・技術・CSを巻き込んだGTM活動として設計する。</span></strong>
+      </p>
+    </div>
+
+    <div class="references">
+      <p><strong><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">参考リンク：</span></strong></p>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">[1] https://sairu.co.jp/service/consulting/marketing-sales/abm/</span></p>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">[2] https://maroo-consulting.com/service/inside-sales-consulting/?utm_source=chatgpt.com</span></p>
+      <p><span style="font-family: &quot;Noto Sans&quot;, sans-serif;">[3] https://maroo-consulting.com/service/inside-sales-bpo/?utm_source=chatgpt.com</span></p>
+    </div>
+  
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body></html>
