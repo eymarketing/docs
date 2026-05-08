@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IGCサービス比較表</title>
+  <style>
+    body {
+      --primary: #005BAC;
+      --primary-dark: #003B7A;
+      --accent: #19C3E6;
+      --accent-soft: #DFF7FB;
+      --bg: #F4F8FB;
+      --border: #D7E3EE;
+      --text: #1F2933;
+      --muted: #5B6B7A;
+      --card: #FFFFFF;
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 91, 172, 0.10);
+      overflow: hidden;
+    }
+    .header {
+      padding: 22px 26px 16px;
+      border-bottom: 3px solid var(--accent);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #ffffff;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      opacity: 0.92;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 18px 22px;
+      background: #EEF6FC;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .summary-card h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: var(--primary-dark);
+    }
+    .summary-card p {
+      margin: 0;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 12px 14px;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+    th {
+      background: var(--accent-soft);
+      color: var(--primary-dark);
+      font-weight: 700;
+      text-align: left;
+    }
+    th:nth-child(1) { width: 18%; }
+    th:nth-child(2) { width: 41%; }
+    th:nth-child(3) { width: 41%; }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .point {
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .caution {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .note {
+      padding: 14px 22px 20px;
+      border-top: 1px solid #d9dee7;
+      background: #F8FBFE;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .note strong {
+      color: var(--primary);
+    }
+    @media (max-width: 840px) {
+      body { padding: 12px; }
+      .summary { grid-template-columns: 1fr; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid var(--border); }
+      td { border-right: none; border-bottom: 1px solid #EEF4FA; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>IGCサービス更新判断：一式契約 vs 個別発注</h1>
+    </div>
+
+    <div class="summary">
+      <div class="summary-card">
+        <h2>IGCサービスを申し込む場合</h2>
+        <p>年間契約として、ヘルスチェック、アドバイザリー、学習支援、IGC Harmonics、IGC Award等を包括的に活用する選択肢。</p>
+      </div>
+      <div class="summary-card">
+        <h2>個別サービスを注文する場合</h2>
+        <p>必要なサービスを都度発注する選択肢。ただし、単発提供の可否や最低契約単位に制約がある。</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>比較観点</th>
+          <th>IGCサービスを申し込む場合</th>
+          <th>個別サービスをニーズベースで注文する場合</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="比較観点"><span class="point">判断軸</span></td>
+          <td data-label="IGCサービスを申し込む場合">IGC Awardを通じた外部認知・ブランディング機会を投資として評価するかが判断軸。加えて、年間のマーケティング人材育成・アドバイザリー基盤として活用できるかを確認する。</td>
+          <td data-label="個別サービスを注文する場合">必要なテーマ・タイミングに応じて個別発注する、コスト最適化の観点での判断。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">費用</span></td>
+          <td data-label="IGCサービスを申し込む場合">年間150万円（税別）／165万円（税込）。</td>
+          <td data-label="個別サービスを注文する場合">利用するサービスの組み合わせ次第。ヘルスチェック単体60万円、アセスメント50万円、アドバイザリー30万円／回など。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">含まれる主な内容</span></td>
+          <td data-label="IGCサービスを申し込む場合">コンテンツライブラリ、スキルアセスメント、ヘルスチェック、アドバイザリー2回、IGC Harmonics 3名分、IGC Jam、IGC Award、学習メニュー企画など。</td>
+          <td data-label="個別サービスを注文する場合">アセスメント、ヘルスチェック、アドバイザリー、研修、ワークショップ等を個別に選択。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">ヘルスチェック</span></td>
+          <td data-label="IGCサービスを申し込む場合">1回含まれる。今回の未活用分についても、継続契約を前提に利用期間の猶予が検討対象。</td>
+          <td data-label="個別サービスを注文する場合">単発実施の場合は60万円（税別）。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">スキルアセスメント</span></td>
+          <td data-label="IGCサービスを申し込む場合">1回100名まで含まれる。社内のB2Bマーケティングスキルの可視化に活用可能。</td>
+          <td data-label="個別サービスを注文する場合">単発実施の場合は50万円（税別）。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">アドバイザリー</span></td>
+          <td data-label="IGCサービスを申し込む場合">2回含まれる。</td>
+          <td data-label="個別サービスを注文する場合">30万円／回。ただし6回分の契約が必須との説明。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">コンテンツライブラリ</span></td>
+          <td data-label="IGCサービスを申し込む場合">最大100IDまで利用可能。</td>
+          <td data-label="個別サービスを注文する場合"><span class="caution">単発提供なし</span>との説明。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">IGC Harmonics</span></td>
+          <td data-label="IGCサービスを申し込む場合">3名分含まれる。ネットワーキングを中心としたスペシャルカンファレンスへの参加枠として活用可能。</td>
+          <td data-label="個別サービスを注文する場合">通常価格は1名20万円（税別）。3名参加の場合は60万円（税別）相当。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">IGC Award</span></td>
+          <td data-label="IGCサービスを申し込む場合">応募資格を満たす。外部認知の獲得および活動実績の可視化機会として活用可能。</td>
+          <td data-label="個別サービスを注文する場合"><span class="caution">IGC契約企業のみ応募対象</span>との説明。契約しない場合は応募資格を満たさない扱い。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">コスト効率</span></td>
+          <td data-label="IGCサービスを申し込む場合">Awardを外部認知・ブランディング施策として評価する場合、単価比較以上の投資価値がある。複数サービスを活用する前提であれば、個別発注より整理しやすい。</td>
+          <td data-label="個別サービスを注文する場合">利用範囲が限定的で、Awardを重視しない場合は支出を抑えられる可能性がある。ただし、最低契約単位や単発提供不可の制約あり。</td>
+        </tr>
+        <tr>
+          <td data-label="比較観点"><span class="point">主なリスク</span></td>
+          <td data-label="IGCサービスを申し込む場合">年間契約のため、契約期間内に活用しきれないサービスが発生する可能性がある。</td>
+          <td data-label="個別サービスを注文する場合">都度発注となるため、スピード、単価、提供可否に制約が出る可能性がある。Awardやコンテンツライブラリ等は代替しにくい。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
